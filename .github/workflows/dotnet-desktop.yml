@@ -1,19 +1,29 @@
-#github action to deploy the useridentity api
+# GitHub Action to deploy the UserIdentity API
 
 name: Deploy UserIdentity API
-on:
- workflow_dispatch:
-jobs:
-    build:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-            - name: Setup .Net Core
-              uses: actions/setup-dotnet@v1
-              with: 
-                dotnet-version: 8.0.x
-            - name: Install dependencies
-              run: dotnet restore ./UserIdentityApplication/UserIdentityApplication.csproj
-            - name: Build
-              run: dotnet build ./UserIdentityApplication/UserIdentityApplication.csproj --configuration Realese -no-restore
 
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Setup .NET Core SDK
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 8.0.x
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: dotnet restore ./UserIdentityApplication/UserIdentityApplication.csproj
+
+      # Step 4: Build the project
+      - name: Build project
+        run: dotnet build ./UserIdentityApplication/UserIdentityApplication.csproj --configuration Release --no-restore
