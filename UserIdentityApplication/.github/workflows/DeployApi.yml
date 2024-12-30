@@ -15,5 +15,5 @@ jobs:
             - name: Install dependencies
               run: dotnet restore ./UserIdentityApplication/UserIdentityApplication.csproj
             - name: Build
-              run: dotnet build ./UserIdentityApplication/UserIdentityApplication.csproj --configuration Realese -no-restore 
+              run: dotnet build ./UserIdentityApplication/UserIdentityApplication.csproj --configuration Realese -no-restore
 
