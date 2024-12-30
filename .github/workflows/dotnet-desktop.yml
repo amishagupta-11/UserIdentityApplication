@@ -5,6 +5,9 @@ name: Deploy UserIdentity API
 on:
   workflow_dispatch:
 
+env: 
+    AZURE_WEBAPP_NAME: "appservice_name"
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,3 +30,17 @@ jobs:
       # Step 4: Build the project
       - name: Build project
         run: dotnet build ./UserIdentityApplication/UserIdentityApplication.csproj --configuration Release --no-restore
+      
+      # publish
+      - name: Publish
+        run: dotnet publish ./UserIdentityApplication/UserIdentityApplication.csproj --configuration Release ./publish
+
+      #deploy to azure
+      # AZURE_PUBLISH_PROFILE should be taking the profile of or web app service and should be stored in git->settings->security->secrets.
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+           app-name: ${{ env.AZURE_WEBAPP_NAME }}
+           publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+           package: ./publish
+  
