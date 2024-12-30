@@ -19,9 +19,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include=".github\workflows\CheckWorkflow.yml" />
-    <None Include=".github\workflows\DeployApi.yml" />
-  </ItemGroup>
-
 </Project>
