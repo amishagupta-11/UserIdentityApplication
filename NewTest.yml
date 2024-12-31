@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env: 
-    AZURE_WEBAPP_NAME: "appservice_name"
+    AZURE_WEBAPP_NAME: "UserIdentityVerification"
 
 jobs:
   build:
