@@ -33,7 +33,7 @@ jobs:
       
       # publish
       - name: Publish
-        run: dotnet publish ./UserIdentityApplication/UserIdentityApplication.csproj --configuration Release ./publish
+        run: dotnet publish ./UserIdentityApplication/UserIdentityApplication.csproj --configuration Release --output ./publish
 
       #deploy to azure
       # AZURE_PUBLISH_PROFILE should be taking the profile of or web app service and should be stored in git->settings->security->secrets.
