@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System;
 using System.Globalization;
 using System.Text;
 using UserIdentityApplication.Data;
@@ -66,8 +65,8 @@ namespace UserIdentityApplication
             }
 
             app.UseHttpsRedirection();
-
-            app.UseAuthentication(); // This needs to be added to authenticate the JWT token
+            // This needs to be added to authenticate the JWT token
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();

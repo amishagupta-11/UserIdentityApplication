@@ -16,6 +16,11 @@ namespace UserIdentityApplication.Controllers
             _authService = authService;
         }
 
+        /// <summary>
+        /// Registers a new user with the provided details.
+        /// </summary>
+        /// <param name="dto">The registration data transfer object.</param>
+        /// <returns>Action result with registration response.</returns>
         [HttpPost("Register")]
         public async Task<IActionResult> Register(RegisterDto dto)
         {
@@ -23,6 +28,11 @@ namespace UserIdentityApplication.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Authenticates a user and generates a JWT token on successful login.
+        /// </summary>
+        /// <param name="dto">The login data transfer object.</param>
+        /// <returns>Action result containing the JWT token.</returns>
         [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginDto dto)
         {
@@ -30,7 +40,12 @@ namespace UserIdentityApplication.Controllers
             return Ok(new { Token = token });
         }
 
-        [Authorize(Roles ="Admin")]
+        /// <summary>
+        /// Allows an Admin user to create another Admin account.
+        /// </summary>
+        /// <param name="dto">The registration data transfer object for the new admin.</param>
+        /// <returns>Action result indicating success or failure.</returns>
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> AddAdmin([FromBody] RegisterDto dto)
         {
