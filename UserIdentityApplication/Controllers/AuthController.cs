@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using UserIdentityApplication.Constants;
 using UserIdentityApplication.DTOs;
 using UserIdentityApplication.Interfaces;
 
@@ -45,7 +46,7 @@ namespace UserIdentityApplication.Controllers
         /// </summary>
         /// <param name="dto">The registration data transfer object for the new admin.</param>
         /// <returns>Action result indicating success or failure.</returns>
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = RolesConstant.ADMIN)]
         [HttpPost]
         public async Task<IActionResult> AddAdmin([FromBody] RegisterDto dto)
         {

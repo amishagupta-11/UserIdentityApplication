@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using UserIdentityApplication.Constants;
 using UserIdentityApplication.Data;
 using UserIdentityApplication.DTOs;
 using UserIdentityApplication.Helpers;
@@ -50,7 +51,7 @@ namespace UserIdentityApplication.Services
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            var defaultRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == "User");
+            var defaultRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == RolesConstant.USER);
             if (defaultRole == null)
                 throw new Exception("Default role not found");
 
@@ -90,6 +91,7 @@ namespace UserIdentityApplication.Services
             }
 
             var roles = user.UserRoles.Select(ur => ur.Role.Name).ToList();
+
             return JwtHelper.GenerateToken(user, roles, _configuration);
         }
 
@@ -108,7 +110,7 @@ namespace UserIdentityApplication.Services
                 .Select(c => c.Value)
                 .ToList();
 
-            if (!currentUserRoles.Contains("Admin"))
+            if (!currentUserRoles.Contains(RolesConstant.ADMIN))
             {
                 throw new UnauthorizedAccessException("Only admins can add a new admin.");
             }
@@ -122,7 +124,7 @@ namespace UserIdentityApplication.Services
                 {
                     Username = dto.Username,
                     Email = dto.Email,
-                    Password = dto.Password, // ⚠️ Should be hashed in production
+                    Password = dto.Password,
                     CreatedDate = DateTime.Now
                 };
 
@@ -130,7 +132,7 @@ namespace UserIdentityApplication.Services
                 await _context.SaveChangesAsync();
             }
 
-            var adminRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == "Admin");
+            var adminRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == RolesConstant.ADMIN);
             if (adminRole == null)
             {
                 throw new Exception("Admin role not found.");

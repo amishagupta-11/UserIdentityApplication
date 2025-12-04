@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using UserIdentityApplication.Constants;
 using UserIdentityApplication.Models;
 
 namespace UserIdentityApplication.Data
@@ -44,8 +45,8 @@ namespace UserIdentityApplication.Data
 
             // Seed data (optional for development)
             modelBuilder.Entity<Role>().HasData(
-                new Role { Id = Guid.NewGuid(), Name = "Admin" },
-                new Role { Id = Guid.NewGuid(), Name = "User" }
+                new Role { Id = Guid.NewGuid(), Name = RolesConstant.ADMIN },
+                new Role { Id = Guid.NewGuid(), Name = RolesConstant.USER }
             );
         }
     }
